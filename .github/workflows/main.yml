@@ -24,13 +24,7 @@ jobs:
       - name: Build React project
         run: |
           npm run build
-      
-      - name: Create .env file
-        run: |
-          echo "Creating .env file..."
-          echo "${{ secrets.ENV }}" > .env
-
-
+          
       - name: Create .env file
         run: |
           echo "Creating .env file..."
