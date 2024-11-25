@@ -24,16 +24,17 @@ jobs:
         run: |
           npm run build
           
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-        
-      - name: Deploy to Shared Hosting using FTP
-        env:
-          FTP_USERNAME: ${{ secrets.STAGE_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.STAGE_FTP_PASSWORD }}
-          FTP_HOST: ftp.trimworldwide.com
+      - name: List files before deployment
         run: |
-          cd build # Adjust this if your build output directory is different
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
+          ls -la
+  
+        # Step 4: Sync files to cPanel via FTP
+      - name: Sync files to development
+        uses: SamKirkland/FTP-Deploy-Action@v4.2.0
+        with:
+          server: ftp.trimworldwide.com
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
       - name: Clean up
         run: echo "Clean up step"
