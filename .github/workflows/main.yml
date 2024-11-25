@@ -30,10 +30,7 @@ jobs:
         run: |
           npm run build
       
-      - name: Create .htaccess file
-        run: |
-          echo "Creating .htaccess file..."
-          echo "${{ secrets.HTACCESS_CONTENT }}" > .htaccess
+      
           
       - name: List files before deployment
         run: |
