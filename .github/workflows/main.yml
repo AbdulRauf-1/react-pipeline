@@ -31,7 +31,7 @@ jobs:
         env:
           FTP_USERNAME: ${{ secrets.STAGE_FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.STAGE_FTP_PASSWORD }}
-          FTP_HOST: ${{ secrets.STAGE_FTP_HOST }}
+          FTP_HOST: ftp.trimworldwide.com
         run: |
           cd build # Adjust this if your build output directory is different
           lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
